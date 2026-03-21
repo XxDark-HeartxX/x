@@ -1,8 +1,6 @@
 local LocalPlayer = game.Players.LocalPlayer
 
-if not LocalPlayer.Character then 
-	LocalPlayer.CharacterAdded:Wait() 
-end
+wait(15)
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local InventoryModule = require(ReplicatedStorage.Modules.InventoryModule)
