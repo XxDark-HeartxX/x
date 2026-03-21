@@ -19,8 +19,9 @@ local TradeData
 	--}
 
 local UpdateTrade
-UpdateTrade = hookfunction(TradeModule.UpdateTrade,function(data) 
+UpdateTrade = hookfunction(TradeModule.UpdateTrade, function(data) 
 	TradeData = data 
+	return TradeModule.UpdateTrade
 end)
 
 Trade.SendRequest.OnClientInvoke = function(Player)
