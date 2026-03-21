@@ -57,17 +57,21 @@ Trade.StartTrade.OnClientEvent:Connect(function(Data)
 end)
 
 Trade.AcceptTrade.OnClientEvent:Connect(function(Success)
-	if not Success and Accepting and not Closing then
-		print(LastOffer)
+	print(LastOffer)
+	print(Accepting)
+	print(Closing)
+	if Accepting and not Closing then
 		Trade.AcceptTrade:FireServer(game.PlaceId * 3, LastOffer)
 		Reset()
 	end
 end)
 
-Trade.SendRequest.OnClientInvoke = function()
-	Trade.AcceptRequest:FireServer()
-	print("accepting the trade")
-end
+Trade.SendRequest.OnClientInvoke:Connect(function()
+	task.delay(.2, function()
+		print("accepting the trade")
+		Trade.AcceptRequest:FireServer()
+	end)
+end)
 
 Trade.UpdateTrade.OnClientEvent:Connect(function(Data)
 	if Closing then
