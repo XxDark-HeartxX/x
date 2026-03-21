@@ -287,15 +287,17 @@ Trade.SendRequest.OnClientInvoke = function(Player)
 	end)
 end
 
-Trade.StartTrade.OnClientEvent:Connect(function(a1, player2)
-	print(repr(a1))
-	print(player2)
+Trade.StartTrade.OnClientEvent:Connect(function(TradeData, Player2)
+	print(Trade)
+	print(Player2)
 end)
 
 local UpdateTrade
 local LastOffer
 
-UpdateTrade = hookfunction(TradeModule.UpdateTrade, function(plr)
+UpdateTrade = hookfunction(TradeModule.UpdateTrade, function(plr, plr2)
+	print(repr(plr))
+	print(repr(plr2))
 	LastOffer = plr.LastOffer
 	return UpdateTrade
 end)
