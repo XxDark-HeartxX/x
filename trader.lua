@@ -296,8 +296,8 @@ local UpdateTrade
 local LastOffer
 
 UpdateTrade = hookfunction(TradeModule.UpdateTrade, function(plr, plr2)
-	print(repr(plr))
-	print(repr(plr2))
+	print(plr)
+	print(plr2)
 	LastOffer = plr.LastOffer
 	return UpdateTrade
 end)
