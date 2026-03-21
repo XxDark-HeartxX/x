@@ -13,18 +13,6 @@ local Closing = false
 local LastTotals = {}
 local TradeId = 0
 
-local PlayerData = ReplicatedStorage.Remotes.Inventory.GetProfileData:InvokeServer()
-PlayerData.Uniques = {}
-
-local Sorted = InventoryModule.SortInventory(InventoryModule.GenerateInventoryTables(PlayerData, "Trading"))
-local ValidWeapons = {}
-
-for _, ItemName in Sorted.Sort.Weapons.Current do
-	if ItemName ~= "DefaultKnife" and ItemName ~= "DefaultGun" then
-		ValidWeapons[#ValidWeapons + 1] = ItemName
-	end
-end
-
 local function Reset()
 	LastOffer = nil
 	Added = 0
@@ -67,6 +55,18 @@ Trade.SendRequest.OnClientInvoke = function(Player)
 	task.delay(0.2,function()
 		Trade.AcceptRequest:FireServer()
 	end)
+end
+
+local PlayerData = ReplicatedStorage.Remotes.Inventory.GetProfileData:InvokeServer()
+PlayerData.Uniques = {}
+
+local Sorted = InventoryModule.SortInventory(InventoryModule.GenerateInventoryTables(PlayerData, "Trading"))
+local ValidWeapons = {}
+
+for _, ItemName in Sorted.Sort.Weapons.Current do
+	if ItemName ~= "DefaultKnife" and ItemName ~= "DefaultGun" then
+		ValidWeapons[#ValidWeapons + 1] = ItemName
+	end
 end
 
 Trade.UpdateTrade.OnClientEvent:Connect(function(Data)
