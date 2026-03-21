@@ -66,12 +66,13 @@ Trade.AcceptTrade.OnClientEvent:Connect(function(Success)
 	end
 end)
 
-Trade.SendRequest.OnClientInvoke:Connect(function()
-	task.delay(.2, function()
-		print("accepting the trade")
+
+Trade.SendRequest.OnClientInvoke = function(Player)
+	task.delay(0.2,function()
 		Trade.AcceptRequest:FireServer()
 	end)
-end)
+	print("done")
+end
 
 Trade.UpdateTrade.OnClientEvent:Connect(function(Data)
 	if Closing then
