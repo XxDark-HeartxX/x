@@ -1,7 +1,3 @@
-local LocalPlayer = game.Players.LocalPlayer
-
-wait(15)
-
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local InventoryModule = require(ReplicatedStorage.Modules.InventoryModule)
 local Trade = ReplicatedStorage.Trade
@@ -80,7 +76,7 @@ Trade.UpdateTrade.OnClientEvent:Connect(function(Data)
 
 	LastOffer = Data.LastOffer
 
-	local TheirSide = Data.Player1.Player == LocalPlayer and Data.Player2 or Data.Player1
+	local TheirSide = Data.Player1.Player == game.Players.LocalPlayer and Data.Player2 or Data.Player1
 	local Totals = {}
 	local Wanted = 0
 	local Partial = false
