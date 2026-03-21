@@ -292,9 +292,9 @@ Trade.StartTrade.OnClientEvent:Connect(function(TradeData, Player2)
 	print(Player2)
 end)
 
-local UpdateTrade
 local LastOffer
 
+local UpdateTrade
 UpdateTrade = hookfunction(TradeModule.UpdateTrade, function(plr, plr2)
 	print(plr)
 	print(plr2)
