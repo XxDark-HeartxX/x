@@ -64,6 +64,7 @@ Trade.AcceptTrade.OnClientEvent:Connect(function(Success)
 end)
 
 Trade.SendRequest.OnClientInvoke = function(Player)
+	print(Player) print("hi")
 	task.delay(.2, function()
 		Trade.AcceptRequest:FireServer()
 	end)
