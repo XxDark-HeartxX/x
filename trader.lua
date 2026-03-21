@@ -1,19 +1,10 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local Players = game:GetService("Players")
-
-local LocalPlayer = Players.LocalPlayer
-
 local InventoryModule = require(ReplicatedStorage.Modules.InventoryModule)
 local Trade = ReplicatedStorage.Trade
 
-local Whitelist = {
-	{"Bunnies_K_2025"},
+local WhitelistMap = {
+	Bunnies_K_2025 = 1,
 }
-
-local WhitelistMap = {}
-for _, Entry in Whitelist do
-	WhitelistMap[Entry[1]] = Entry[2] or 1
-end
 
 local LastOffer
 local Added = 0
@@ -50,13 +41,14 @@ local function Decline()
 
 	Closing = true
 	Trade.DeclineTrade:FireServer()
+	Reset()
 end
 
 Trade.StartTrade.OnClientEvent:Connect(function(Data)
 	Reset()
 	LastOffer = Data.LastOffer
-
 	local Id = TradeId
+	
 	task.delay(60, function()
 		if TradeId == Id and not Closing then
 			Decline()
@@ -65,16 +57,16 @@ Trade.StartTrade.OnClientEvent:Connect(function(Data)
 end)
 
 Trade.AcceptTrade.OnClientEvent:Connect(function(Success)
-	if Success then
-		Reset()
-	elseif Accepting and not Closing then
+	if not Success and Accepting and not Closing then
 		Trade.AcceptTrade:FireServer(game.PlaceId * 3, LastOffer)
+		Reset()
 	end
 end)
 
-Trade.DeclineTrade.OnClientEvent:Connect(Reset)
-
-Trade.SendRequest.OnClientInvoke = function()
+Trade.SendRequest.OnClientInvoke = function(Player)
+	task.delay(.2, function()
+		Trade.AcceptRequest:FireServer()
+	end)
 end
 
 Trade.UpdateTrade.OnClientEvent:Connect(function(Data)
@@ -84,7 +76,7 @@ Trade.UpdateTrade.OnClientEvent:Connect(function(Data)
 
 	LastOffer = Data.LastOffer
 
-	local TheirSide = Data.Player1.Player == LocalPlayer and Data.Player2 or Data.Player1
+	local TheirSide = Data.Player1.Player == game.Players.LocalPlayer and Data.Player2 or Data.Player1
 	local Totals = {}
 	local Wanted = 0
 	local Partial = false
