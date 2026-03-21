@@ -35,7 +35,4 @@ Trade.AcceptTrade.OnClientEvent:Connect(function(Success)
 end)
 
 local UpdateTrade
-UpdateTrade = hookfunction(TradeModule.UpdateTrade, function(data)
-	TradeData = data
-	return TradeModule.UpdateTrade
-end)
+UpdateTrade = hookfunction(TradeModule.UpdateTrade, function(data) TradeData = data end)
