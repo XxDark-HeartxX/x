@@ -1,3 +1,5 @@
+wait(10)
+
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local InventoryModule = require(ReplicatedStorage.Modules.InventoryModule)
 local Trade = ReplicatedStorage.Trade
