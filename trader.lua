@@ -10,13 +10,15 @@ end
 
 Trade.StartTrade.OnClientEvent:Connect(function(a1, player2)
 	print(a1)
+	print(player2)
 end)
 
+local UpdateTrade
 local LastOffer
 
-hookfunction(TradeModule.UpdateTrade, function(plr)
+UpdateTrade = hookfunction(TradeModule.UpdateTrade, function(plr)
 	LastOffer = plr.LastOffer
-	print(LastOffer)
+	return UpdateTrade
 end)
 
 Trade.AcceptTrade.OnClientEvent:Connect(function(Success)
