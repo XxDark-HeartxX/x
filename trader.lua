@@ -282,13 +282,13 @@ local TradeModule = require(ReplicatedStorage:WaitForChild("Modules"):WaitForChi
 local Trade = ReplicatedStorage:WaitForChild("Trade")
 
 Trade.SendRequest.OnClientInvoke = function(Player)
-	task.delay(0.2, function()
+	task.delay(1, function()
 		Trade.AcceptRequest:FireServer()
 	end)
 end
 
 Trade.StartTrade.OnClientEvent:Connect(function(TradeData, Player2)
-	print(TradeData)
+	print(repr(TradeData))
 	print(Player2)
 end)
 
@@ -296,7 +296,7 @@ local LastOffer
 
 local UpdateTrade
 UpdateTrade = hookfunction(TradeModule.UpdateTrade, function(TradeData)
-	print(TradeData)
+	print(repr(TradeData))
 	LastOffer = TradeData.LastOffer
 	return UpdateTrade
 end)
