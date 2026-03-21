@@ -16,7 +16,7 @@ local LastOffer
 
 hookfunction(TradeModule.UpdateTrade, function(plr)
 	LastOffer = plr.LastOffer
-	return TradeModule.UpdateTrade(plr)
+	return
 end)
 
 Trade.AcceptTrade.OnClientEvent:Connect(function(Success)
